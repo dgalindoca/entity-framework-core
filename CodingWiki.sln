@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingWiki_Web", "CodingWiki_Web\CodingWiki_Web.csproj", "{589B8B49-1A0B-40C3-A7AF-5B331F872345}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{589B8B49-1A0B-40C3-A7AF-5B331F872345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589B8B49-1A0B-40C3-A7AF-5B331F872345}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589B8B49-1A0B-40C3-A7AF-5B331F872345}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589B8B49-1A0B-40C3-A7AF-5B331F872345}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80759EBC-310E-4BDD-94A9-6CA44D94F8F9}
+	EndGlobalSection
+EndGlobal
