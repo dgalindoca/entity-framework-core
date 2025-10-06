@@ -12,8 +12,7 @@ namespace CodingWiki_DataAccess.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
-        // Droping Genre entity to demonstrate migration
-        //public DbSet<Genre> Genres { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
