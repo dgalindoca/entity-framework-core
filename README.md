@@ -16,3 +16,10 @@ An *Object-Relational Mapping (ORM)* is a programming technique that **creates a
 
     **Note:** This command should only be used for migrations that have not been applied to the database using *update-database*. If a migration has already been applied, removing it directly can lead to inconsistencies.
 
+## When to add a migration?
+
+1. Add a new Class / table in the database
+2. Add a new property / Column to table
+3. Modify existing property / Column in a table *(e.g. Renaming property, changing data type)*
+4. Delete existing property / Column in a table
+5. Delete a Class / table in the database
