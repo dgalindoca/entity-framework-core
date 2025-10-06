@@ -16,6 +16,8 @@ An *Object-Relational Mapping (ORM)* is a programming technique that **creates a
 * remove-migration: Removes the **most recently added migration** that has **not yet been applied to the database**.
 
     **Note:** This command should only be used for migrations that have not been applied to the database using *update-database*. If a migration has already been applied, removing it directly can lead to inconsistencies.
+* get-migration: Brings up **All migrations** And displays wether that has been applied or not.
+* drop-database: Deletes a database that has been created.
 
 ## When to add a migration?
 
