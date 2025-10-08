@@ -30,25 +30,43 @@ An *Object-Relational Mapping (ORM)* is a programming technique that **creates a
 ## Data Anotations
 
 ### Table Name: 
+Sets the table name
 ```
 [Table("tb_Category")]
 public class Category
 ```
 
 ### Column Name: 
+Sets the column name
 ```
 [Column("BookISBN")]
 public string ISBN { get; set; }
 ```
 
 ### Required: 
+Sets if the column is required *(In case the project doesn't have nullable false by default)*
 ```
 [Required]
 public string Tittle { get; set; }
 ```
 
 ### Primary Key: 
+Indicates wich column is the primary key of the column
 ```
 [Key]
 public string ISBN { get; set; }
+```
+
+### Max Length:
+Stablishes the max length of a column
+```
+[MaxLength(50)]
+public string Title { get; set; }
+```
+
+### Not Maped: 
+Indicates that the property should not be added as a new column *(e.g. A property that is used for some computation)*
+```
+[NotMapped]
+public double DiscountedPrice { get; set; }
 ```

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,13 @@ namespace CodingWiki_Model.Models
         //Annotation is optional if the property is named "Id" or "<ClassName>Id"
         public int BookId { get; set; }
         public string Title { get; set; }
+        [MaxLength(20)]
+        [Required]
         public string ISBN { get; set; }
         public decimal Price { get; set; }
+        // This property will not be mapped to a database column
+        [NotMapped]
+        // Custom string that describes the price range of the book (e.g., "Low", "Mid", "High")
+        public string PriceRange { get; set; }
     }
 }
