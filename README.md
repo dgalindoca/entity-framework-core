@@ -26,3 +26,17 @@ An *Object-Relational Mapping (ORM)* is a programming technique that **creates a
 3. Modify existing property / Column in a table *(e.g. Renaming property, changing data type)*
 4. Delete existing property / Column in a table
 5. Delete a Class / table in the database
+
+## Data Anotations
+
+### Table Name: 
+```
+[Table("tb_Category")]
+public class Category
+```
+
+### Column Name: 
+```
+[Column("BookISBN")]
+public string ISBN { get; set; }
+```
