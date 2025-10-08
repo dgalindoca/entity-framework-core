@@ -40,3 +40,15 @@ public class Category
 [Column("BookISBN")]
 public string ISBN { get; set; }
 ```
+
+### Required: 
+```
+[Required]
+public string Tittle { get; set; }
+```
+
+### Primary Key: 
+```
+[Key]
+public string ISBN { get; set; }
+```
