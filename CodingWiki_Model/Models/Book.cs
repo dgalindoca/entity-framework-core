@@ -22,5 +22,7 @@ namespace CodingWiki_Model.Models
         [NotMapped]
         // Custom string that describes the price range of the book (e.g., "Low", "Mid", "High")
         public string PriceRange { get; set; }
+        // Property for the BookDetail entity
+        public BookDetail BookDetail { get; set; }
     }
 }
