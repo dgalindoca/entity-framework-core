@@ -24,5 +24,8 @@ namespace CodingWiki_Model.Models
         public string PriceRange { get; set; }
         // Property for the BookDetail entity
         public BookDetail BookDetail { get; set; }
+        [ForeignKey("Publisher")]
+        public int Publisher_Id { get; set; }
+        public Publisher Publisher { get; set; }
     }
 }
