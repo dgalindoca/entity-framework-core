@@ -26,6 +26,10 @@ namespace CodingWiki_DataAccess.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>().Property(u => u.Price).HasPrecision(10, 5); // Configuring precision and scale for decimal property
+
+            modelBuilder.Entity<BookAuthorMap>()
+                .HasKey(bam => new { bam.Book_Id, bam.Author_Id }); // Composite primary key
+
             modelBuilder.Entity<Book>().HasData(
                 new Book { BookId = 1, Title = "C# Programming", ISBN = "1234567890", Price = 29.990m, Publisher_Id = 1 },
                 new Book { BookId = 2, Title = "ASP.NET Core Guide", ISBN = "0987654321", Price = 39.99m, Publisher_Id = 2 }
