@@ -70,3 +70,18 @@ Indicates that the property should not be added as a new column *(e.g. A propert
 [NotMapped]
 public double DiscountedPrice { get; set; }
 ```
+
+## Fluent API
+
+Is an advance way of *specifying model configuration* and other *advanced configuration* that **covers everything that Data Annotation can't do**.
+
+### To use Fluent API
+
+Create an *OnModelCreating* override in the *DbContext* Class:
+```
+// Method in DbContext class
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    // Fluent API Configurations goes in here
+}
+```
