@@ -85,3 +85,24 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
     // Fluent API Configurations goes in here
 }
 ```
+
+### Table Name: 
+Sets the table name
+```
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Category>()
+                .ToTable("tb_category")
+}
+```
+
+### Column Name: 
+Sets the column name
+```
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Category>()
+                .Property(c => c.ISBN)
+                .HasColumnName("bookISBN")
+}
+```
