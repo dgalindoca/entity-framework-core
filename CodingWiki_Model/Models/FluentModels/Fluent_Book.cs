@@ -10,18 +10,12 @@ namespace CodingWiki_Model.Models
 {
     public class Fluent_Book
     {
-        //[Key]
-        //Annotation is optional if the property is named "Id" or "<ClassName>Id"
         public int BookId { get; set; }
         public string Title { get; set; }
-        [MaxLength(20)]
-        [Required]
         public string ISBN { get; set; }
         public decimal Price { get; set; }
-        // This property will not be mapped to a database column
-        [NotMapped]
-        // Custom string that describes the price range of the book (e.g., "Low", "Mid", "High")
         public string PriceRange { get; set; }
+
         // Property for the BookDetail entity
         //public BookDetail BookDetail { get; set; }
         //[ForeignKey("Publisher")]

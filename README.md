@@ -127,3 +127,24 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .HasKey(c => c.Category_Id);
 }
 ```
+
+### Max Length:
+Stablishes the max length of a column
+```
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Category>()
+                .Property(c => c.Title)
+                .HasMaxLength(50);
+}
+```
+
+### Not Maped: 
+Indicates that the property should not be added as a new column *(e.g. A property that is used for some computation)*
+```
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Category>()
+                .Ignore(c => c.DiscountedPrice);
+}
+```
