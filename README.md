@@ -92,7 +92,7 @@ Sets the table name
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Category>()
-                .ToTable("tb_category")
+                .ToTable("tb_category");
 }
 ```
 
@@ -103,6 +103,27 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Category>()
                 .Property(c => c.ISBN)
-                .HasColumnName("bookISBN")
+                .HasColumnName("bookISBN");
+}
+```
+
+### Required: 
+Sets if the column is required *(In case the project doesn't have nullable false by default)*
+```
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Category>()
+                .Property(c => c.Title)
+                .IsRequired();
+}
+```
+
+### Primary Key: 
+Indicates wich column is the primary key of the column
+```
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Category>()
+                .HasKey(c => c.Category_Id);
 }
 ```
