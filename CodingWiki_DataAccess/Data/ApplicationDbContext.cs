@@ -20,6 +20,9 @@ namespace CodingWiki_DataAccess.Data
         //rename to Fluent_BookDetails
         public DbSet<Fluent_BookDetail> BookDetail_fluent { get; set; }
         public DbSet<Fluent_Book> Fluent_Books { get; set; }
+        public DbSet<Fluent_Author> Fluent_Authors { get; set; }
+        public DbSet<Fluent_Publisher> Fluent_Publisher { get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -29,6 +32,7 @@ namespace CodingWiki_DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Fluent API Tables config
             modelBuilder.Entity<Fluent_BookDetail>().ToTable("Fluent_BookDetails");
             modelBuilder.Entity<Fluent_BookDetail>().Property(u => u.NumberOfChapters).HasColumnName("NoOfChapters");
             modelBuilder.Entity<Fluent_BookDetail>().Property(u => u.NumberOfChapters).IsRequired();
@@ -41,11 +45,25 @@ namespace CodingWiki_DataAccess.Data
             modelBuilder.Entity<Fluent_Book>().Ignore(u => u.PriceRange);
 
 
-            modelBuilder.Entity<Book>().Property(u => u.Price).HasPrecision(10, 5); // Configuring precision and scale for decimal property
+            modelBuilder.Entity<Fluent_Author>().Property(u => u.FirstName).HasMaxLength(50);
+            modelBuilder.Entity<Fluent_Author>().Property(u => u.FirstName).IsRequired();
+            modelBuilder.Entity<Fluent_Author>().Property(u => u.LastName).IsRequired();
+            modelBuilder.Entity<Fluent_Author>().HasKey(u => u.Author_Id);
+            modelBuilder.Entity<Fluent_Author>().Ignore(u => u.FullName);
 
+
+            modelBuilder.Entity<Fluent_Publisher>().Property(u => u.Name).IsRequired();
+            modelBuilder.Entity<Fluent_Publisher>().HasKey(u => u.Publisher_Id);
+
+
+            // Configuring precision and scale for decimal property
+            modelBuilder.Entity<Book>().Property(u => u.Price).HasPrecision(10, 5);
+
+            // Composite primary key
             modelBuilder.Entity<BookAuthorMap>()
-                .HasKey(bam => new { bam.Book_Id, bam.Author_Id }); // Composite primary key
+                .HasKey(bam => new { bam.Book_Id, bam.Author_Id });
 
+            // Seed Data
             modelBuilder.Entity<Book>().HasData(
                 new Book { BookId = 1, Title = "C# Programming", ISBN = "1234567890", Price = 29.990m, Publisher_Id = 1 },
                 new Book { BookId = 2, Title = "ASP.NET Core Guide", ISBN = "0987654321", Price = 39.99m, Publisher_Id = 2 }
