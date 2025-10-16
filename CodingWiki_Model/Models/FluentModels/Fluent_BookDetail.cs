@@ -10,15 +10,12 @@ namespace CodingWiki_Model.Models
 {
     public class Fluent_BookDetail
     {
-        [Key]
         public int BookDetail_Id { get; set; }
-        [Required]
         public int NumberOfChapters { get; set; }
         public int NumberOfPages { get; set; }
         public string Weight { get; set; }
-        // Foreign key property for the Book entity
-        //[ForeignKey("Book")]
-        //public int Book_Id { get; set; }
-        //public Fluent_Book Book { get; set; }
+        //Foreign key property for the Book entity
+        public int Book_Id { get; set; }
+        public Fluent_Book Book { get; set; }
     }
 }

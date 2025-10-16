@@ -32,11 +32,15 @@ namespace CodingWiki_DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Fluent API Tables config
+            // Fluent API Tables config and relationships
             modelBuilder.Entity<Fluent_BookDetail>().ToTable("Fluent_BookDetails");
             modelBuilder.Entity<Fluent_BookDetail>().Property(u => u.NumberOfChapters).HasColumnName("NoOfChapters");
             modelBuilder.Entity<Fluent_BookDetail>().Property(u => u.NumberOfChapters).IsRequired();
             modelBuilder.Entity<Fluent_BookDetail>().HasKey(u => u.BookDetail_Id);
+            // One-to-One relationship between Book and BookDetail
+            modelBuilder.Entity<Fluent_BookDetail>().HasOne(b => b.Book)
+                .WithOne(b => b.BookDetail)
+                .HasForeignKey<Fluent_BookDetail>(b => b.Book_Id);
 
 
             modelBuilder.Entity<Fluent_Book>().Property(u => u.ISBN).HasMaxLength(50);

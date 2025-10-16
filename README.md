@@ -148,3 +148,31 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
                 .Ignore(c => c.DiscountedPrice);
 }
 ```
+
+### One to One Relation
+Create One to One relations between tables using Fluent API:
+1. Add **Foreign Key** and **Entity properties** in the *"child"* entity. For example:
+    
+    **Fluent_BookDetail Class:**
+    ```
+    //Foreign key property for the Book entity
+    public int Book_Id { get; set; }
+    public Fluent_Book Book { get; set; }
+    ```
+2. Add **Entity property** in the *"parent"* entity. For example:
+    
+    **Fluent_Book Class:**
+    ```
+    // Property for the BookDetail entity
+    public Fluent_BookDetail BookDetail { get; set; }
+    ```
+3. Add relation in the **DbContext class**:
+    ```
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // One-to-One relationship between Book and BookDetail
+        modelBuilder.Entity<Fluent_BookDetail>().HasOne(b => b.Book)
+            .WithOne(b => b.BookDetail)
+            .HasForeignKey<Fluent_BookDetail>(b => b.Book_Id);
+    }
+    ```
