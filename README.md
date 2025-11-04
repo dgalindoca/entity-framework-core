@@ -205,3 +205,32 @@ Create One to Many relations between tables using Fluent API:
             .HasForeignKey(z => z.Publisher_Id);
     }
     ```
+
+### Many to Many Relation - Skip Mapping Table
+Create Many to Many relations between tables using Fluent API:
+1. Add **Foreign Key** and **Entity properties** in the *"child"* entity. For example:
+    
+    **Fluent_Book Class:**
+    ```
+    //Foreign key property for the Book entity
+    public int Publisher_Id { get; set; }
+    public Publisher Publisher { get; set; }
+    ```
+2. Add **List of Entity property** in the *"parent"* entity. For example:
+    
+    **Fluent_Publisher Class:**
+    ```
+    // Property for the BookDetail entity
+    public List<Fluent_Book> Books { get; set; }
+    ```
+3. Add relation in the **DbContext class**:
+    ```
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // One-to-Many relationship between Publisher and Book
+        modelBuilder.Entity<Fluent_Book>().HasKey(b => b.BookId);
+        modelBuilder.Entity<Fluent_Book>().HasOne(z => z.Publisher)
+            .WithMany(z => z.Books)
+            .HasForeignKey(z => z.Publisher_Id);
+    }
+    ```
