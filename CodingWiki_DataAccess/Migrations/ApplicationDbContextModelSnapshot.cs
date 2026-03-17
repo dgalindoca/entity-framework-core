@@ -240,6 +240,21 @@ namespace CodingWiki_DataAccess.Migrations
                     b.ToTable("Fluent_Books");
                 });
 
+            modelBuilder.Entity("CodingWiki_Model.Models.Fluent_BookAuthorMap", b =>
+                {
+                    b.Property<int>("Book_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Author_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Book_Id", "Author_Id");
+
+                    b.HasIndex("Author_Id");
+
+                    b.ToTable("Fluent_BookAuthorMap");
+                });
+
             modelBuilder.Entity("CodingWiki_Model.Models.Fluent_BookDetail", b =>
                 {
                     b.Property<int>("BookDetail_Id")
@@ -347,21 +362,6 @@ namespace CodingWiki_DataAccess.Migrations
                     b.ToTable("SubCategories");
                 });
 
-            modelBuilder.Entity("Fluent_AuthorFluent_Book", b =>
-                {
-                    b.Property<int>("AuthorsAuthor_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BooksBookId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AuthorsAuthor_Id", "BooksBookId");
-
-                    b.HasIndex("BooksBookId");
-
-                    b.ToTable("Fluent_AuthorFluent_Book");
-                });
-
             modelBuilder.Entity("CodingWiki_Model.Models.Book", b =>
                 {
                     b.HasOne("CodingWiki_Model.Models.Publisher", "Publisher")
@@ -414,6 +414,25 @@ namespace CodingWiki_DataAccess.Migrations
                     b.Navigation("Publisher");
                 });
 
+            modelBuilder.Entity("CodingWiki_Model.Models.Fluent_BookAuthorMap", b =>
+                {
+                    b.HasOne("CodingWiki_Model.Models.Fluent_Author", "Author")
+                        .WithMany("BookAuthorMap")
+                        .HasForeignKey("Author_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodingWiki_Model.Models.Fluent_Book", "Book")
+                        .WithMany("BookAuthorMap")
+                        .HasForeignKey("Book_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Book");
+                });
+
             modelBuilder.Entity("CodingWiki_Model.Models.Fluent_BookDetail", b =>
                 {
                     b.HasOne("CodingWiki_Model.Models.Fluent_Book", "Book")
@@ -423,21 +442,6 @@ namespace CodingWiki_DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("Fluent_AuthorFluent_Book", b =>
-                {
-                    b.HasOne("CodingWiki_Model.Models.Fluent_Author", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorsAuthor_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CodingWiki_Model.Models.Fluent_Book", null)
-                        .WithMany()
-                        .HasForeignKey("BooksBookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CodingWiki_Model.Models.Author", b =>
@@ -452,8 +456,15 @@ namespace CodingWiki_DataAccess.Migrations
                     b.Navigation("BookDetail");
                 });
 
+            modelBuilder.Entity("CodingWiki_Model.Models.Fluent_Author", b =>
+                {
+                    b.Navigation("BookAuthorMap");
+                });
+
             modelBuilder.Entity("CodingWiki_Model.Models.Fluent_Book", b =>
                 {
+                    b.Navigation("BookAuthorMap");
+
                     b.Navigation("BookDetail");
                 });
 

@@ -63,6 +63,16 @@ namespace CodingWiki_DataAccess.Data
             modelBuilder.Entity<Fluent_Publisher>().HasKey(u => u.Publisher_Id);
 
 
+            // Mapping table composite key
+            modelBuilder.Entity<Fluent_BookAuthorMap>().HasKey(b => new { b.Book_Id, b.Author_Id });
+            // Many-to-Many relationship between Author and Book
+            modelBuilder.Entity<Fluent_BookAuthorMap>().HasOne(z => z.Book)
+                .WithMany(z => z.BookAuthorMap)
+                .HasForeignKey(z => z.Book_Id);
+            modelBuilder.Entity<Fluent_BookAuthorMap>().HasOne(z => z.Author)
+                .WithMany(z => z.BookAuthorMap)
+                .HasForeignKey(z => z.Author_Id);
+
             // Configuring precision and scale for decimal property
             modelBuilder.Entity<Book>().Property(u => u.Price).HasPrecision(10, 5);
 

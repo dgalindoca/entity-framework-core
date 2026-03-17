@@ -10,7 +10,7 @@ An *Object-Relational Mapping (ORM)* is a programming technique that **creates a
 
 ## Entity Framework Core Tools
 
-* add-migration \[MigrationName]: Creates a new **migration file** based on the **changes detected in the DbContext** and model classes compared to the last applied migration. This file **contains C# code that defines the necessary operations to evolve the database schema**.
+* add-migration \[MigrationName] -context \[ContextName]: Creates a new **migration file** based on the **changes detected in the DbContext** and model classes compared to the last applied migration. This file **contains C# code that defines the necessary operations to evolve the database schema**.
 * update-database: Applies any **pending migrations*** to the database, bringing its schema in line with the application's current model.
 * update-database \[MigrationName]: **Reverts the migrations** until reaching the migration *MigrationName*.
 * remove-migration: Removes the **most recently added migration** that has **not yet been applied to the database**.
@@ -207,30 +207,60 @@ Create One to Many relations between tables using Fluent API:
     ```
 
 ### Many to Many Relation - Skip Mapping Table
-Create Many to Many relations between tables using Fluent API:
-1. Add **Foreign Key** and **Entity properties** in the *"child"* entity. For example:
+Create Many to Many relations between tables (Fluent API not required):
+1. Add **Entity properties** in the entities. For example:
     
     **Fluent_Book Class:**
     ```
-    //Foreign key property for the Book entity
-    public int Publisher_Id { get; set; }
-    public Publisher Publisher { get; set; }
+    //Property for the Author entity
+    public List<Fluent_Author> Authors { get; set; }
     ```
-2. Add **List of Entity property** in the *"parent"* entity. For example:
-    
-    **Fluent_Publisher Class:**
+
+    **Fluent_Author Class:**
     ```
-    // Property for the BookDetail entity
+    //Property for the Book entity
     public List<Fluent_Book> Books { get; set; }
     ```
-3. Add relation in the **DbContext class**:
+
+### Many to Many Relation - Manual Mapping Table
+Create Many to Many relations between tables (Fluent API not required):
+1. Create **Manual mapping table**. For Example:
+
+    ´´´
+    public class BookAuthor{
+        public int BookId { get; set; }
+        public int AuthorId { get; set; }
+        public Author Author { get; set; }
+        public Book Books { get; set; }
+    }
+    ´´´
+
+2. Add **Entity properties** from the **new mapping table** in the entities. For example:
+    
+    **Fluent_Book Class:**
+    ```
+    //Property for the Author entity
+    public List<BookAuthor> BookAuthor { get; set; }
+    ```
+
+    **Fluent_Author Class:**
+    ```
+    //Property for the Book entity
+    public List<BookAuthor> BookAuthor { get; set; }
+    ```
+
+3. Add the **composite key** to the **mapping table** and the relation in the **DbContext class**:
     ```
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // One-to-Many relationship between Publisher and Book
-        modelBuilder.Entity<Fluent_Book>().HasKey(b => b.BookId);
-        modelBuilder.Entity<Fluent_Book>().HasOne(z => z.Publisher)
-            .WithMany(z => z.Books)
-            .HasForeignKey(z => z.Publisher_Id);
+        // Mapping table composite key
+        modelBuilder.Entity<BookAuthor>().HasKey(b => new { b.BookId, b.AuthorId });
+        // Many-to-Many relationship between Author and Book
+        modelBuilder.Entity<BookAuthor>().HasOne(z => z.Book)
+            .WithMany(z => z.BookAuthor)
+            .HasForeignKey(z => z.BookId);
+        modelBuilder.Entity<BookAuthor>().HasOne(z => z.Author)
+            .WithMany(z => z.BookAuthor)
+            .HasForeignKey(z => z.AuthorId);
     }
     ```
