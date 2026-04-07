@@ -14,8 +14,8 @@ Console.WriteLine("Hello, World!");
 //    }
 //}
 
+//AddBook();
 GetAllBooks();
-AddBook();
 
 void GetAllBooks()
 {
