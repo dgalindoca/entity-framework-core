@@ -16,6 +16,14 @@ Console.WriteLine("Hello, World!");
 
 //AddBook();
 GetAllBooks();
+GetBook();
+
+void GetBook()
+{
+    using var context = new ApplicationDbContext();
+    var book = context.Books.FirstOrDefault();
+    Console.WriteLine($"{book.Title} - {book.ISBN}");
+}
 
 void GetAllBooks()
 {
