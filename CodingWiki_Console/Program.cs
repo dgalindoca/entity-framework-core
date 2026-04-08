@@ -16,14 +16,13 @@ Console.WriteLine("Hello, World!");
 //}
 
 //AddBook();
-GetAllBooks();
+//GetAllBooks();
 GetBook();
 
 void GetBook()
 {
     using var context = new ApplicationDbContext();
-    // Defer execution of the query until the data is actually needed
-    var books = context.Books;
+    var books = context.Books.Where(u => u.Price > 10).OrderBy(u => u.Title).ThenByDescending(u => u.ISBN);
     foreach (var book in books)
     {
         Console.WriteLine($"{book.Title} - {book.ISBN}");
@@ -33,7 +32,6 @@ void GetBook()
 void GetAllBooks()
 {
     using var context = new ApplicationDbContext();
-    // Execute the query immediately and load all books into memory
     var books = context.Books.ToList();
     foreach (var book in books)
     {
