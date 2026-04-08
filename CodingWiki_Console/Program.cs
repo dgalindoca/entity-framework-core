@@ -21,8 +21,8 @@ GetBook();
 void GetBook()
 {
     using var context = new ApplicationDbContext();
-    // Retrieve only using primary key
-    var book = context.Books.Find(4);
+    // Expects a single record with the given ISBN, otherwise it will throw an exception
+    var book = context.Books.Single(u => u.ISBN == "1231231212");
     Console.WriteLine($"{book.Title} - {book.ISBN}");
 }
 
