@@ -21,7 +21,7 @@ GetBook();
 void GetBook()
 {
     using var context = new ApplicationDbContext();
-    var book = context.Books.FirstOrDefault();
+    var book = context.Books.Where(u => u.Publisher_Id == 3 && u.Price > 30).FirstOrDefault();
     Console.WriteLine($"{book.Title} - {book.ISBN}");
 }
 
