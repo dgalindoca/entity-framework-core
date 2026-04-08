@@ -22,13 +22,8 @@ GetBook();
 void GetBook()
 {
     using var context = new ApplicationDbContext();
-    // SQL: SELECT * FROM Books WHERE ISBN LIKE '%12%'
-    //var books = context.Books.Where(u => u.ISBN.Contains("12"));
-    // SQL: SELECT * FROM Books WHERE ISBN LIKE '12%'
-    var books = context.Books.Where(u => EF.Functions.Like(u.ISBN, "12%"));
-    // SQL: SELECT * FROM Books WHERE ISBN LIKE '%12'
-    //var books = context.Books.Where(u => EF.Functions.Like(u.ISBN, "%12"));
-    //Console.WriteLine($"{book.Title} - {book.ISBN}");
+    // Defer execution of the query until the data is actually needed
+    var books = context.Books;
     foreach (var book in books)
     {
         Console.WriteLine($"{book.Title} - {book.ISBN}");
@@ -38,6 +33,7 @@ void GetBook()
 void GetAllBooks()
 {
     using var context = new ApplicationDbContext();
+    // Execute the query immediately and load all books into memory
     var books = context.Books.ToList();
     foreach (var book in books)
     {
