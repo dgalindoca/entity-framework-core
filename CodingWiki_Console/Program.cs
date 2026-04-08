@@ -18,20 +18,43 @@ Console.WriteLine("Hello, World!");
 //AddBook();
 //GetAllBooks();
 GetBook();
+UpdateBook();
+
+void UpdateBook()
+{
+    try
+    {
+        using var context = new ApplicationDbContext();
+        var books = context.Books.Find(6);
+        books.ISBN = "777";
+        context.SaveChanges();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
 
 void GetBook()
 {
-    using var context = new ApplicationDbContext();
-    var books = context.Books.Skip(0).Take(2);
-    foreach (var book in books)
+    try
     {
-        Console.WriteLine($"{book.Title} - {book.ISBN}");
-    }
+        using var context = new ApplicationDbContext();
+        var books = context.Books.Skip(0).Take(2);
+        foreach (var book in books)
+        {
+            Console.WriteLine($"{book.Title} - {book.ISBN}");
+        }
 
-    books = context.Books.Skip(4).Take(1);
-    foreach (var book in books)
+        books = context.Books.Skip(4).Take(1);
+        foreach (var book in books)
+        {
+            Console.WriteLine($"{book.Title} - {book.ISBN}");
+        }
+    }
+    catch (Exception ex)
     {
-        Console.WriteLine($"{book.Title} - {book.ISBN}");
+        Console.WriteLine(ex.Message);
     }
 }
 
