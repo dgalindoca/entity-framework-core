@@ -21,7 +21,8 @@ GetBook();
 void GetBook()
 {
     using var context = new ApplicationDbContext();
-    var book = context.Books.FirstOrDefault(u => u.Title == "Cookie Jar");
+    // Retrieve only using primary key
+    var book = context.Books.Find(4);
     Console.WriteLine($"{book.Title} - {book.ISBN}");
 }
 
