@@ -2,6 +2,7 @@
 using CodingWiki_DataAccess.Data;
 using CodingWiki_Model.Models;
 using Microsoft.EntityFrameworkCore;
+using static System.Reflection.Metadata.BlobBuilder;
 
 Console.WriteLine("Hello, World!");
 
@@ -21,9 +22,17 @@ GetBook();
 void GetBook()
 {
     using var context = new ApplicationDbContext();
-    // Expects a single record with the given ISBN, otherwise it will throw an exception
-    var book = context.Books.Single(u => u.ISBN == "1231231212");
-    Console.WriteLine($"{book.Title} - {book.ISBN}");
+    // SQL: SELECT * FROM Books WHERE ISBN LIKE '%12%'
+    //var books = context.Books.Where(u => u.ISBN.Contains("12"));
+    // SQL: SELECT * FROM Books WHERE ISBN LIKE '12%'
+    var books = context.Books.Where(u => EF.Functions.Like(u.ISBN, "12%"));
+    // SQL: SELECT * FROM Books WHERE ISBN LIKE '%12'
+    //var books = context.Books.Where(u => EF.Functions.Like(u.ISBN, "%12"));
+    //Console.WriteLine($"{book.Title} - {book.ISBN}");
+    foreach (var book in books)
+    {
+        Console.WriteLine($"{book.Title} - {book.ISBN}");
+    }
 }
 
 void GetAllBooks()
