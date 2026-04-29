@@ -21,12 +21,12 @@ Console.WriteLine("Hello, World!");
 //UpdateBook();
 DeleteBook();
 
-void DeleteBook()
+async void DeleteBook()
 {
     using var context = new ApplicationDbContext();
-    var books = context.Books.Find(7);
+    var books = await context.Books.FindAsync(7);
     context.Books.Remove(books);
-    context.SaveChanges();
+    await context.SaveChangesAsync();
 }
 
 void UpdateBook()
